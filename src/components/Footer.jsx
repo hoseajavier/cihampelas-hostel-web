@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Phone, Calendar } from "lucide-react";
+import logoCihHostel from "../assets/cih-hostel.png";
 
 const Footer = () => {
   return (
@@ -10,7 +11,7 @@ const Footer = () => {
         <div>
           <Link to="/" className="inline-block mb-6">
             <img
-              src="/src/assets/cih-hostel.png"
+              src={logoCihHostel}
               alt="Cihampelas Hostel Logo"
               className="w-40 object-contain"
             />
