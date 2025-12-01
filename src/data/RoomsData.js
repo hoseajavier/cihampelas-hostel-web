@@ -53,7 +53,7 @@ export const roomsData = [
   {
     id: '103',
     roomSize: '3.0 x 3.5 meter', 
-    price: { daily: '160.000', weekly: '900.000', monthly: '1.500.000' },
+    price: { daily: '160.000', weekly: '900.000', monthly: '1.600.000' },
     images: [r103_main, r103_2, r103_3, r103_4, r103_5, r103_6],
     features: ['AC', 'WiFi', 'Hot Shower', 'TV Netflix', 'Private Bathroom']
   },
