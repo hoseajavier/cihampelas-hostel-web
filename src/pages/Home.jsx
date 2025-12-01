@@ -21,9 +21,16 @@ import {
 } from "lucide-react";
 import tourVideo from "../assets/hostel-tour.mp4";
 
+// --- IMPORT GAMBAR ROOM UNTUK PRICING ---
+import r101_5 from "../assets/rooms/101 (5).jpg";
+import r102_2 from "../assets/rooms/102 (2).jpg";
+import r103_2 from "../assets/rooms/103 (2).jpg";
+import r104_3 from "../assets/rooms/104 (3).jpg";
+import r105_2 from "../assets/rooms/105 (2).jpg";
+import r106_2 from "../assets/rooms/106 (2).jpg";
+
 const Home = () => {
   // --- STATE VIDEO ---
-  // Default TRUE (Muted) agar Autoplay jalan lancar di semua browser
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
 
@@ -34,18 +41,50 @@ const Home = () => {
     }
   };
 
+  // Data Rates dengan Image
   const roomRates = [
-    { id: "101", daily: "190.000", weekly: "1.200.000", monthly: "1.900.000" },
+    {
+      id: "101",
+      daily: "190.000",
+      weekly: "1.200.000",
+      monthly: "1.900.000",
+      image: r101_5,
+    },
     {
       id: "102",
       daily: "200.000",
       weekly: "1.300.000",
       monthly: "2.000.000",
+      image: r102_2,
     },
-    { id: "103", daily: "160.000", weekly: "900.000", monthly: "1.600.000" },
-    { id: "104", daily: "170.000", weekly: "1.000.000", monthly: "1.700.000" },
-    { id: "105", daily: "180.000", weekly: "1.100.000", monthly: "1.800.000" },
-    { id: "106", daily: "190.000", weekly: "1.200.000", monthly: "1.900.000" },
+    {
+      id: "103",
+      daily: "160.000",
+      weekly: "900.000",
+      monthly: "1.600.000",
+      image: r103_2,
+    },
+    {
+      id: "104",
+      daily: "170.000",
+      weekly: "1.000.000",
+      monthly: "1.700.000",
+      image: r104_3,
+    },
+    {
+      id: "105",
+      daily: "180.000",
+      weekly: "1.100.000",
+      monthly: "1.800.000",
+      image: r105_2,
+    },
+    {
+      id: "106",
+      daily: "190.000",
+      weekly: "1.200.000",
+      monthly: "1.900.000",
+      image: r106_2,
+    },
   ];
 
   const amenities = [
@@ -115,13 +154,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- BOOKING BOX (REDESIGNED) --- */}
+      {/* --- BOOKING BOX --- */}
       <section className="w-full px-6 mt-12 mb-20 flex justify-center relative z-10">
-        {/* Dekorasi Background agar box terasa "mengambang" */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-full max-w-4xl bg-blue-100/50 rounded-[3rem] blur-3xl -z-10"></div>
 
         <div className="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-3xl border border-blue-100 relative overflow-hidden">
-          {/* Aksen dekoratif di pojok */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-400/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
 
           <div className="text-center mb-8 relative">
@@ -152,7 +189,6 @@ const Home = () => {
             }}
             className="space-y-5"
           >
-            {/* Input Name dengan Ikon */}
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
                 <User size={20} />
@@ -167,13 +203,12 @@ const Home = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Input Phone dengan Ikon */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
                   <Phone size={20} />
                 </div>
                 <input
-                  type="tel" // Ubah ke type="tel" untuk keyboard angka di HP
+                  type="tel"
                   name="phone"
                   placeholder="WhatsApp Number"
                   required
@@ -181,7 +216,6 @@ const Home = () => {
                 />
               </div>
 
-              {/* Input Guest dengan Ikon */}
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
                   <Users size={20} />
@@ -197,7 +231,6 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Tombol Submit */}
             <button
               type="submit"
               className="w-full py-4 bg-linear-to-r from-blue-600 to-blue-700 text-white font-bold text-lg rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-blue-500/30 flex items-center justify-center gap-3"
@@ -213,7 +246,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- VIDEO TOUR SECTION (HP FRAME STYLE) --- */}
+      {/* --- VIDEO TOUR SECTION --- */}
       <section className="w-full bg-white py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col items-center mb-10">
@@ -226,16 +259,12 @@ const Home = () => {
             </p>
           </div>
 
-          {/* HP Frame Container */}
           <div className="relative w-full max-w-xs md:max-w-sm mx-auto shadow-2xl rounded-[2.5rem] border-8 border-gray-900 overflow-hidden bg-black transform transition-transform duration-500">
-            {/* Kamera HP Dekorasi (Notch) */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-2xl z-20 flex justify-center items-center gap-2">
-              {/* Speaker & Kamera kecil */}
               <div className="w-12 h-1.5 bg-gray-800 rounded-full"></div>
               <div className="w-2 h-2 bg-gray-800 rounded-full"></div>
             </div>
 
-            {/* VIDEO PLAYER */}
             <video
               ref={videoRef}
               src={tourVideo}
@@ -246,7 +275,6 @@ const Home = () => {
               muted={isMuted}
             />
 
-            {/* TOMBOL MUTE */}
             <button
               onClick={toggleMute}
               className="absolute bottom-6 right-6 z-30 p-3 bg-black/60 backdrop-blur-md text-white rounded-full hover:bg-blue-600 transition-all border border-white/20 active:scale-90"
@@ -254,10 +282,8 @@ const Home = () => {
               {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
             </button>
 
-            {/* Overlay Gradient agar teks/tombol di bawah lebih jelas */}
             <div className="absolute bottom-0 left-0 w-full h-32 bg-linear-to-t from-black/70 via-black/20 to-transparent pointer-events-none"></div>
 
-            {/* Teks Indikator (Opsional) */}
             <div className="absolute bottom-6 left-6 text-white z-20">
               <p className="text-xs font-bold bg-yellow-400 text-black px-2 py-1 rounded mb-1 inline-block tracking-wider">
                 ROOM TOUR
@@ -267,7 +293,6 @@ const Home = () => {
               </p>
             </div>
 
-            {/* Instruksi Unmute (Opsional) */}
             {isMuted && (
               <div className="absolute bottom-20 right-6 bg-black/70 text-white text-[10px] px-3 py-1 rounded-full backdrop-blur-sm animate-bounce z-30 border border-white/10">
                 Tap to Unmute
@@ -279,27 +304,19 @@ const Home = () => {
 
       {/* --- AMENITIES --- */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
-        {/* SECTION TITLE */}
         <div className="text-center mb-14">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">
             Our Amenities
           </h2>
         </div>
 
-        {/* ITEMS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {amenities.map((item, index) => (
             <div
               key={index}
-              className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 
-                   hover:shadow-lg transition-shadow duration-300 
-                   flex flex-col items-start group"
+              className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition-shadow duration-300 flex flex-col items-start group"
             >
-              <div
-                className="p-3 bg-blue-50 text-blue-600 rounded-xl mb-4 
-                        group-hover:bg-blue-600 group-hover:text-yellow-400 
-                        transition-colors duration-300"
-              >
+              <div className="p-3 bg-blue-50 text-blue-600 rounded-xl mb-4 group-hover:bg-blue-600 group-hover:text-yellow-400 transition-colors duration-300">
                 {item.icon}
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-2">
@@ -311,12 +328,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- PRICING SECTION (Simplified) --- */}
+      {/* --- PRICING SECTION --- */}
       <section
         id="pricing"
         className="bg-blue-900 py-20 px-6 text-white relative overflow-hidden"
       >
-        {/* Dekorasi Background */}
         <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400 rounded-full blur-[100px] opacity-20 -translate-x-1/2 -translate-y-1/2"></div>
 
         <div className="max-w-7xl mx-auto relative z-10">
@@ -332,47 +348,60 @@ const Home = () => {
             {roomRates.map((room) => (
               <div
                 key={room.id}
-                className={`bg-white text-gray-800 rounded-2xl p-6 relative overflow-hidden flex flex-col transform transition-all hover:-translate-y-1 ${
+                className={`bg-white text-gray-800 rounded-2xl relative overflow-hidden flex flex-col transform transition-all hover:-translate-y-1 ${
                   room.recommend
-                    ? "shadow-2xl z-10"
+                    ? "shadow-2xl z-10 scale-105"
                     : "shadow-lg border border-gray-100"
                 }`}
               >
-                {/* Header Kartu */}
-                <div className="flex items-center justify-between mb-6 border-b border-gray-100 pb-4">
-                  <h3 className="text-2xl font-bold text-blue-900">
+                {/* Bagian Gambar Kamar */}
+                <div className="h-48 w-full overflow-hidden bg-gray-200 relative">
+                  <img
+                    src={room.image}
+                    alt={`Room ${room.id}`}
+                    className="w-full h-full transition-transform duration-500 hover:scale-110"
+                  />
+                  {/* Badge Room ID di atas Gambar */}
+                  <div className="absolute top-3 left-3 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
                     Room {room.id}
-                  </h3>
-                  <span className="text-gray-400 text-sm font-medium bg-gray-50 px-2 py-1 rounded">
-                    Standard
-                  </span>
+                  </div>
+
+                  {/* Badge Best Value jika ada */}
+                  {room.recommend && (
+                    <div className="absolute top-0 right-0 bg-yellow-400 text-blue-900 text-xs font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider shadow-sm">
+                      Best Value
+                    </div>
+                  )}
                 </div>
 
-                {/* Price List Only */}
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center group">
-                    <span className="text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors">
-                      Daily
-                    </span>
-                    <span className="text-lg font-bold text-gray-800">
-                      Rp {room.daily}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center group">
-                    <span className="text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors">
-                      Weekly
-                    </span>
-                    <span className="text-lg font-bold text-gray-800">
-                      Rp {room.weekly}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center bg-blue-50 p-3 rounded-xl -mx-2 border border-blue-100">
-                    <span className="text-sm font-bold text-blue-600">
-                      Monthly
-                    </span>
-                    <span className="text-xl font-extrabold text-blue-700">
-                      Rp {room.monthly}
-                    </span>
+                {/* Konten Harga */}
+                <div className="p-6">
+                  {/* Price List Only */}
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center group">
+                      <span className="text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors">
+                        Daily
+                      </span>
+                      <span className="text-lg font-bold text-gray-800">
+                        Rp {room.daily}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center group">
+                      <span className="text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors">
+                        Weekly
+                      </span>
+                      <span className="text-lg font-bold text-gray-800">
+                        Rp {room.weekly}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center bg-blue-50 p-3 rounded-xl -mx-2 border border-blue-100">
+                      <span className="text-sm font-bold text-blue-600">
+                        Monthly
+                      </span>
+                      <span className="text-xl font-extrabold text-blue-700">
+                        Rp {room.monthly}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -400,11 +429,10 @@ const Home = () => {
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800">
             Why Choose Cihampelas Hostel?
           </h2>
-          <div className="w-20 h-1 bg-yellow-400 mt-3 rounded-full mx-auto"></div>
+          <div className="w-20 h-1 bg-blue-600 mt-3 rounded-full mx-auto"></div>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* 3 Minutes to Ciwalk */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
             <MapPin className="text-blue-900 mb-3" size={32} />
             <h3 className="text-xl font-bold text-blue-900 mb-2">
@@ -416,7 +444,6 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Fully Furnished */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
             <CheckCircle className="text-blue-900 mb-3" size={32} />
             <h3 className="text-xl font-bold text-blue-900 mb-2">
@@ -428,7 +455,6 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Fast WiFi & Netflix */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
             <Wifi className="text-blue-900 mb-3" size={32} />
             <h3 className="text-xl font-bold text-blue-900 mb-2">
@@ -439,7 +465,6 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Safe & Secure */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
             <ShieldAlert className="text-blue-900 mb-3" size={32} />
             <h3 className="text-xl font-bold text-blue-900 mb-2">
@@ -450,7 +475,6 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Flexible Stay Options */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
             <Calendar className="text-blue-900 mb-3" size={32} />
             <h3 className="text-xl font-bold text-blue-900 mb-2">
@@ -461,7 +485,6 @@ const Home = () => {
             </p>
           </div>
 
-          {/* Affordable Pricing */}
           <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-lg transition">
             <CreditCard className="text-blue-900 mb-3" size={32} />
             <h3 className="text-xl font-bold text-blue-900 mb-2">

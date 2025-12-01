@@ -4,6 +4,8 @@ import { Volume2, VolumeX, Check, MessageCircle, Maximize } from 'lucide-react';
 // Import Data dan Video
 import { roomsData } from '../data/RoomsData';
 import portraitVideo from '../assets/hostel-tour-room.mp4';
+// Import Gambar Denah (Floor Plan)
+import detailSizeRoom from "../assets/detail-size-room.jpg";
 
 // --- SUB-COMPONENT: ROOM CARD ---
 const RoomCard = ({ room }) => {
@@ -17,7 +19,7 @@ const RoomCard = ({ room }) => {
         <img 
           src={activeImage} 
           alt={`Room ${room.id}`} 
-          className="w-full h-full transition-all duration-500"
+          className="w-full h-full bg-gray-50 transition-all duration-500"
         />
         <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-md">
           Room {room.id}
@@ -42,7 +44,7 @@ const RoomCard = ({ room }) => {
       {/* DETAIL HARGA & FITUR */}
       <div className="p-6 grow flex flex-col justify-between">
         <div>
-          {/* --- MENAMPILKAN SIZE KAMAR DISINI --- */}
+          {/* --- MENAMPILKAN SIZE KAMAR --- */}
           <div className="flex items-center gap-2 mb-4 text-gray-700 font-semibold bg-blue-50/50 p-2 rounded-lg border border-blue-100">
              <Maximize size={20} className="text-blue-600" />
              <span>Room Size: {room.roomSize}</span>
@@ -168,6 +170,22 @@ const Rooms = () => {
           </div>
 
         </div>
+      </section>
+
+      {/* --- FLOOR PLAN SECTION (NEW ADDITION) --- */}
+      <section className="py-12 px-6 max-w-5xl mx-auto">
+         <div className="text-center mb-8">
+             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Floor Plan Layout</h2>
+             <p className="text-gray-500 mt-2">Check the room position and specific dimensions</p>
+         </div>
+         
+         <div className="bg-white p-4 rounded-3xl shadow-xl border border-gray-200">
+             <img 
+               src={detailSizeRoom} 
+               alt="Cihampelas Hostel Floor Plan" 
+               className="w-full h-auto object-contain rounded-2xl" 
+             />
+         </div>
       </section>
 
       {/* ROOMS GRID */}
