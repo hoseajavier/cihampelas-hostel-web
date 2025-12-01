@@ -41,9 +41,8 @@ const Home = () => {
       daily: "200.000",
       weekly: "1.300.000",
       monthly: "2.000.000",
-      recommend: true,
     },
-    { id: "103", daily: "160.000", weekly: "900.000", monthly: "1.500.000" },
+    { id: "103", daily: "160.000", weekly: "900.000", monthly: "1.600.000" },
     { id: "104", daily: "170.000", weekly: "1.000.000", monthly: "1.700.000" },
     { id: "105", daily: "180.000", weekly: "1.100.000", monthly: "1.800.000" },
     { id: "106", daily: "190.000", weekly: "1.200.000", monthly: "1.900.000" },
@@ -218,7 +217,9 @@ const Home = () => {
       <section className="w-full bg-white py-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col items-center mb-10">
-            <h2 className="text-3xl font-bold text-gray-800">Cihampelas Hostel Tour</h2>
+            <h2 className="text-3xl font-bold text-gray-800">
+              Cihampelas Hostel Tour
+            </h2>
             <div className="w-30 h-1 bg-yellow-400 mt-2 rounded-full"></div>
             <p className="text-gray-500 mt-4">
               Take a look inside our comfortable rooms
