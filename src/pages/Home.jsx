@@ -18,6 +18,8 @@ import {
   VolumeX,
   MessageCircle,
   CalendarCheck,
+  Footprints, // Ikon baru untuk jarak jalan kaki
+  ArrowRight, // Import ArrowRight untuk tombol
 } from "lucide-react";
 import tourVideo from "../assets/hostel-tour.mp4";
 
@@ -120,17 +122,60 @@ const Home = () => {
     },
   ];
 
+  // Data Destinasi untuk Hero Section (Placeholder Images)
+  const nearbySpots = [
+    {
+      name: "Ciwalk Mall",
+      time: "3 Mins Walk",
+      img: "https://res.cloudinary.com/df2knrwm3/image/upload/w_800,h_400,c_fill/Hero%20images/ciwalk-mall-bandung-home_sp5igv.jpg",
+    },
+    {
+      name: "Teras Cihampelas",
+      time: "2 Mins Walk",
+      img: "https://asset-2.tstatic.net/jabar/foto/bank/images/teras-cihampelas-tahap-ii.jpg",
+    },
+    {
+      name: "Balubur Town Square (Baltos)",
+      time: "15 Mins Walk",
+      img: "https://i.ytimg.com/vi/7AUABs4wYsE/maxresdefault.jpg",
+    },
+    {
+      name: "Taman Film",
+      time: "18 Mins Walk",
+      img: "https://salsawisata.com/wp-content/uploads/2022/09/Taman-Film-Bandung.jpg",
+    },
+    {
+      name: "Paris Van Java (PVJ)",
+      time: "17 Mins Walk",
+      img: "https://www.harapanrakyat.com/wp-content/uploads/2023/08/Mall-Paris-van-Java-Bandung.jpg",
+    },
+    {
+      name: "Braga Bandung",
+      time: "10 Mins Drive",
+      img: "https://www.travelapak.id/wp-content/uploads/2023/05/Jalan-Braga-Bandung.jpg",
+    },
+  ];
+
   return (
     <div className="w-full min-h-screen bg-slate-50 font-sans pt-20">
-      {/* --- HERO SECTION --- */}
-      <section className="relative w-full px-6 py-16 md:py-24 max-w-7xl mx-auto flex flex-col items-center text-center">
-        <span className="px-4 py-1.5 bg-yellow-400 text-blue-900 font-bold text-xs tracking-widest uppercase rounded-full mb-6 shadow-sm">
+      
+      {/* --- HERO SECTION (UPDATED) --- */}
+      <section className="relative w-full px-6 py-16 md:py-20 max-w-7xl mx-auto flex flex-col items-center text-center overflow-hidden">
+        
+        {/* Badge Selamat Datang */}
+        <span className="px-4 py-1.5 bg-yellow-400 text-blue-900 font-bold text-xs tracking-widest uppercase rounded-full mb-6 shadow-sm animate-fade-in-down">
           Welcome to Cihampelas Hostel
         </span>
+        
+        {/* Judul Utama */}
         <h1 className="text-4xl md:text-6xl font-extrabold text-blue-900 leading-tight mb-6">
           Comfort & Convenience <br />
-          <span className="text-blue-600">at Cihampelas Hostel</span>
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-indigo-600">
+            at Cihampelas Hostel
+          </span>
         </h1>
+        
+        {/* Deskripsi */}
         <p className="text-gray-600 max-w-2xl text-lg mb-10 leading-relaxed">
           Experience the best stay just a{" "}
           <strong>3-minute walk from Cihampelas Walk (Ciwalk)</strong>. Fully
@@ -138,10 +183,50 @@ const Home = () => {
           or monthly stays.
         </p>
 
+        {/* --- NEW: NEARBY DESTINATIONS PREVIEW (LARGER) --- */}
+        {/* Container diperlebar (max-w-5xl) dan tinggi gambar ditambah */}
+        <div className="grid grid-cols-3 gap-4 md:gap-8 mb-6 w-full max-w-5xl">
+          {nearbySpots.map((spot, idx) => (
+            <div key={idx} className="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer hover:-translate-y-2 transition-all duration-300">
+              {/* Gambar Lebih Besar (h-32 di mobile, h-56 di desktop) */}
+              <div className="h-32 md:h-56 w-full bg-gray-200">
+                <img 
+                  src={spot.img} 
+                  alt={spot.name} 
+                  className="w-full h-full transition-transform duration-700" 
+                />
+              </div>
+              {/* Overlay linear */}
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent opacity-80"></div>
+              
+              {/* Teks Info */}
+              <div className="absolute bottom-3 left-0 w-full px-3 md:px-4 text-left">
+                <p className="text-yellow-400 text-[10px] md:text-xs font-bold uppercase tracking-wider flex items-center gap-1 mb-1">
+                  <Footprints size={12} />
+                  {spot.time}
+                </p>
+                <p className="text-white font-bold text-sm md:text-lg leading-tight truncate">
+                  {spot.name}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Tombol View All City Tour */}
+        <Link 
+          to="/tour" 
+          className="mb-12 inline-flex items-center gap-2 text-blue-600 font-bold text-sm md:text-base hover:text-blue-800 transition-colors group"
+        >
+          View All City Tour 
+          <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+        </Link>
+
+        {/* Tombol CTA Utama */}
         <div className="flex gap-4">
           <a
             href="#pricing"
-            className="px-8 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 transition-transform hover:-translate-y-1"
+            className="px-8 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1"
           >
             View Rates
           </a>
@@ -155,7 +240,7 @@ const Home = () => {
       </section>
 
       {/* --- BOOKING BOX --- */}
-      <section className="w-full px-6 mt-12 mb-20 flex justify-center relative z-10">
+      <section className="w-full px-6 mt-4 mb-20 flex justify-center relative z-10">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-full max-w-4xl bg-blue-100/50 rounded-[3rem] blur-3xl -z-10"></div>
 
         <div className="bg-white shadow-2xl rounded-3xl p-8 w-full max-w-3xl border border-blue-100 relative overflow-hidden">
