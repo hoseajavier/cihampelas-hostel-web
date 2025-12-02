@@ -51,7 +51,7 @@ const Footer = () => {
             <p className="text-2xl font-mono text-white tracking-widest mb-1 select-all">
               5173 120 680
             </p>
-            <p className="text-gray-400">a.n HERWIN MUCHTAR</p>
+            <p className="text-gray-400">a.n HERWIANTO MUCHTAR</p>
           </div>
         </div>
       </div>
