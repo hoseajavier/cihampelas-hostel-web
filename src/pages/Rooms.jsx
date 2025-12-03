@@ -136,11 +136,10 @@ const VideoCard = ({ videoSrc, roomId }) => {
         ref={videoRef}
         src={videoSrc}
         className="w-full h-full object-cover cursor-pointer"
-        onClick={togglePlay} // Klik video untuk play/pause
+        onClick={togglePlay}
         loop 
-        muted={isMuted} // Default true
+        muted={isMuted}
         playsInline
-        // Hapus autoPlay agar defaultnya pause
       />
 
       {/* --- OVERLAY PLAY BUTTON (Muncul saat Pause) --- */}
