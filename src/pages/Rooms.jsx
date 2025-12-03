@@ -1,13 +1,29 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Volume2, VolumeX, Check, MessageCircle, Maximize } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Check, MessageCircle, Maximize, Play, Pause, Volume2, VolumeX, PlayCircle } from 'lucide-react';
 
-// Import Data dan Video
+// --- IMPORT DATA ---
 import { roomsData } from '../data/RoomsData';
-import portraitVideo from '../assets/hostel-tour-room.mp4';
-// Import Gambar Denah (Floor Plan)
-import detailSizeRoom from "../assets/detail-size-room.jpg";
 
-// --- SUB-COMPONENT: ROOM CARD ---
+// --- IMPORT ASSETS (GAMBAR & VIDEO) ---
+import detailSizeRoom from "../assets/detail-size-room.jpg";
+import tour101 from "../assets/r101_tour.mp4";
+import tour102 from "../assets/r102_tour.mp4";
+import tour103 from "../assets/r103_tour.mp4";
+import tour104 from "../assets/r104_tour.mp4";
+import tour105 from "../assets/r105_tour.mp4";
+import tour106 from "../assets/r106_tour.mp4";
+
+// Mapping ID Kamar ke File Video agar mudah dipanggil
+const videoMap = {
+  101: tour101,
+  102: tour102,
+  103: tour103,
+  104: tour104,
+  105: tour105,
+  106: tour106,
+};
+
+// --- SUB-COMPONENT: ROOM CARD (INFO HARGA & FOTO) ---
 const RoomCard = ({ room }) => {
   const [activeImage, setActiveImage] = useState(room.images[0]);
 
@@ -19,7 +35,7 @@ const RoomCard = ({ room }) => {
         <img 
           src={activeImage} 
           alt={`Room ${room.id}`} 
-          className="w-full h-full bg-gray-50 transition-all duration-500"
+          className="w-full h-full transition-all duration-500"
         />
         <div className="absolute top-4 left-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold shadow-md">
           Room {room.id}
@@ -44,10 +60,9 @@ const RoomCard = ({ room }) => {
       {/* DETAIL HARGA & FITUR */}
       <div className="p-6 grow flex flex-col justify-between">
         <div>
-          {/* --- MENAMPILKAN SIZE KAMAR --- */}
           <div className="flex items-center gap-2 mb-4 text-gray-700 font-semibold bg-blue-50/50 p-2 rounded-lg border border-blue-100">
              <Maximize size={20} className="text-blue-600" />
-             <span>Room Size: {room.roomSize}</span>
+             <span>Size: {room.roomSize}</span>
           </div>
 
           <div className="flex flex-wrap gap-2 mb-6">
@@ -86,17 +101,96 @@ const RoomCard = ({ room }) => {
   );
 };
 
-// --- COMPONENT UTAMA: ROOMS PAGE ---
-const Rooms = () => {
-  const [isMuted, setIsMuted] = useState(true);
+// --- SUB-COMPONENT: VIDEO CARD ---
+const VideoCard = ({ videoSrc, roomId }) => {
   const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
 
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
+  // Fungsi Toggle Play/Pause
+  const togglePlay = () => {
     if (videoRef.current) {
-      videoRef.current.muted = !isMuted;
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
     }
   };
+
+  // Fungsi Toggle Mute/Unmute
+  const toggleMute = (e) => {
+    e.stopPropagation(); // Mencegah trigger togglePlay saat klik tombol mute
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  return (
+    <div className="bg-black rounded-3xl shadow-lg overflow-hidden h-full min-h-[400px] relative group border border-gray-800 flex flex-col justify-center">
+      
+      {/* --- VIDEO PLAYER --- */}
+      <video 
+        ref={videoRef}
+        src={videoSrc}
+        className="w-full h-full object-cover cursor-pointer"
+        onClick={togglePlay} // Klik video untuk play/pause
+        loop 
+        muted={isMuted} // Default true
+        playsInline
+        // Hapus autoPlay agar defaultnya pause
+      />
+
+      {/* --- OVERLAY PLAY BUTTON (Muncul saat Pause) --- */}
+      {!isPlaying && (
+        <div 
+          className="absolute inset-0 flex items-center justify-center bg-black/40 cursor-pointer transition-all hover:bg-black/30"
+          onClick={togglePlay}
+        >
+          <div className="bg-white/20 backdrop-blur-md border border-white/30 rounded-full p-6 text-white shadow-2xl transform transition-transform hover:scale-110">
+            <Play size={48} fill="currentColor" className="ml-2" /> {/* Icon Play */}
+          </div>
+        </div>
+      )}
+
+      {/* --- LABEL LIVE TOUR (Pojok Kanan Atas) --- */}
+      <div className="absolute top-4 right-4 z-10 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1 shadow-md pointer-events-none">
+        <PlayCircle size={14} /> Room Tour
+      </div>
+
+      {/* --- CONTROLS BAR (Bawah) --- */}
+      <div className="absolute bottom-0 left-0 w-full bg-linear-to-t from-black/90 via-black/50 to-transparent p-6 flex justify-between items-end transition-opacity duration-300">
+        
+        {/* Info Text */}
+        <div className="text-white">
+           <p className="font-bold text-lg">Room {roomId}</p>
+           <p className="text-gray-300 text-xs flex items-center gap-2">
+             {isPlaying ? (
+               <span className="flex items-center gap-1 text-green-400"><div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> Now Playing</span>
+             ) : (
+               <span className="text-gray-400">Paused</span>
+             )}
+           </p>
+        </div>
+
+        {/* Tombol Mute / Unmute */}
+        <button 
+          onClick={toggleMute}
+          className="bg-white/10 hover:bg-white/20 backdrop-blur-sm p-3 rounded-full text-white border border-white/20 transition-all active:scale-95"
+          title={isMuted ? "Unmute" : "Mute"}
+        >
+          {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
+        </button>
+
+      </div>
+    </div>
+  );
+};
+
+// --- COMPONENT UTAMA: ROOMS PAGE ---
+const Rooms = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -105,10 +199,11 @@ const Rooms = () => {
   return (
     <div className="min-h-screen bg-slate-50 font-sans pt-0">
       
-      {/* HERO SECTION */}
-      <section className="bg-white pt-32 pb-16 px-6">
+      {/* HERO SECTION - Updated: Video diganti Floor Plan Image */}
+      <section className="bg-white pt-32 pb-16 px-6 border-b border-gray-200">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
           
+          {/* Kolom Kiri: Teks */}
           <div className="flex-1 text-center md:text-left">
             <span className="text-blue-600 font-bold tracking-widest uppercase text-sm mb-2 block">
               Cozy & Affordable
@@ -118,8 +213,10 @@ const Rooms = () => {
             </h1>
             <p className="text-gray-600 text-lg mb-8 leading-relaxed">
               Explore our fully furnished rooms. Clean, comfortable, and strategic. 
-              Watch the room tour to see exactly what you get.
+              Check the floor plan on the right to see the layout.
             </p>
+            
+            {/* Fasilitas Icons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                <div className="flex items-center gap-2 text-gray-500">
                  <div className="bg-green-100 p-2 rounded-full text-green-600"><Check size={16} /></div>
@@ -133,71 +230,40 @@ const Rooms = () => {
                  <div className="bg-green-100 p-2 rounded-full text-green-600"><Check size={16} /></div>
                  <span>Netflix Ready</span>
                </div>
-               <div className="flex items-center gap-2 text-gray-500">
-                 <div className="bg-green-100 p-2 rounded-full text-green-600"><Check size={16} /></div>
-                 <span>Hot Water</span>
-               </div>
             </div>
           </div>
 
-          {/* Video Player (Portrait) */}
-          <div className="relative w-full max-w-xs md:max-w-sm mx-auto shadow-2xl rounded-[2.5rem] border-8 border-gray-900 overflow-hidden bg-black">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-gray-900 rounded-b-xl z-20"></div>
-
-            <video
-              ref={videoRef}
-              src={portraitVideo}
-              className="w-full h-[550px] object-cover" 
-              autoPlay
-              loop
-              playsInline
-              muted={isMuted}
-            />
-
-            <button
-              onClick={toggleMute}
-              className="absolute bottom-6 right-6 z-30 p-3 bg-black/60 backdrop-blur-md text-white rounded-full hover:bg-blue-600 transition-all border border-white/20"
-            >
-              {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-            </button>
-            
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-linear-to-t from-black/60 to-transparent pointer-events-none"></div>
-            
-            <div className="absolute bottom-6 left-6 text-white z-20">
-               <p className="text-xs font-bold bg-yellow-400 text-black px-2 py-1 rounded mb-1 inline-block">ROOM TOUR</p>
-               <p className="font-semibold text-sm">See inside the room</p>
-            </div>
+          {/* Kolom Kanan: Floor Plan Image (Menggantikan Video Header) */}
+          <div className="flex-1 w-full max-w-lg">
+             <div className="bg-white p-2 rounded-4xl shadow-2xl border-4 border-gray-100">
+               <div className="relative overflow-hidden rounded-3xl">
+                  <img 
+                    src={detailSizeRoom} 
+                    alt="Floor Plan Denah" 
+                    className="w-full h-auto"
+                  />
+               </div>
+             </div>
           </div>
 
         </div>
       </section>
 
-      {/* --- FLOOR PLAN SECTION (NEW ADDITION) --- */}
-      <section className="py-12 px-6 max-w-5xl mx-auto">
-         <div className="text-center mb-8">
-             <h2 className="text-2xl md:text-3xl font-bold text-gray-900">Floor Plan Layout</h2>
-             <p className="text-gray-500 mt-2">Check the room position and specific dimensions</p>
-         </div>
-         
-         <div className="bg-white p-4 rounded-3xl shadow-xl border border-gray-200">
-             <img 
-               src={detailSizeRoom} 
-               alt="Cihampelas Hostel Floor Plan" 
-               className="w-full h-auto object-contain rounded-2xl" 
-             />
-         </div>
-      </section>
-
-      {/* ROOMS GRID */}
+      {/* ROOMS & VIDEOS GRID SECTION */}
       <section className="py-20 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900">Choose Your Room</h2>
+          <h2 className="text-3xl font-bold text-gray-900">Room Details & Tours</h2>
           <div className="w-20 h-1 bg-blue-600 mx-auto mt-4 rounded-full"></div>
+          <p className="text-gray-500 mt-4">Compare prices and watch the room video side-by-side</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
           {roomsData.map((room) => (
-            <RoomCard key={room.id} room={room} />
+            <React.Fragment key={room.id}>
+              <RoomCard room={room} />
+          
+              <VideoCard videoSrc={videoMap[room.id]} roomId={room.id} />
+            </React.Fragment>
           ))}
         </div>
       </section>
