@@ -185,7 +185,7 @@ const Home = () => {
 
         {/* --- NEW: NEARBY DESTINATIONS PREVIEW (LARGER) --- */}
         {/* Container diperlebar (max-w-5xl) dan tinggi gambar ditambah */}
-        <div className="grid grid-cols-3 gap-4 md:gap-8 mb-6 w-full max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-6 w-full max-w-5xl">
           {nearbySpots.map((spot, idx) => (
             <div key={idx} className="group relative rounded-2xl overflow-hidden shadow-lg cursor-pointer hover:-translate-y-2 transition-all duration-300">
               {/* Gambar Lebih Besar (h-32 di mobile, h-56 di desktop) */}
