@@ -26,7 +26,7 @@ export default function Navbar() {
     { name: "HOME", path: "/" },
     { name: "ABOUT", path: "/about" },
     { name: "ROOMS", path: "/rooms" },
-    { name: "TOUR", path: "/tour" },
+    { name: "NEARBY ATTRACTIONS", path: "/nearby-attractions" },
   ];
 
   // Helper untuk menentukan apakah link sedang aktif
