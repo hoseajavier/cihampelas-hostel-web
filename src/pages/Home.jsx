@@ -210,7 +210,7 @@ const Home = () => {
 
         {/* Tombol View All City Tour */}
         <Link 
-          to="/tour" 
+          to="/nearby-attractions" 
           className="mb-12 inline-flex items-center gap-2 text-blue-600 font-bold text-sm md:text-base hover:text-blue-800 transition-colors group"
         >
           View All Nearby Attractions 
