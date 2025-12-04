@@ -213,7 +213,7 @@ const Home = () => {
           to="/tour" 
           className="mb-12 inline-flex items-center gap-2 text-blue-600 font-bold text-sm md:text-base hover:text-blue-800 transition-colors group"
         >
-          View All City Tour 
+          View All Nearby Attractions 
           <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
         </Link>
 
@@ -223,7 +223,7 @@ const Home = () => {
             href="#pricing"
             className="w-full sm:w-auto px-8 py-3 bg-blue-600 text-white font-bold rounded-full shadow-lg hover:bg-blue-700 hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1"
           >
-            View Rates
+            View Room Rates
           </a>
           <a
             href="#contact"
